@@ -12,17 +12,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
     <script type="text/babel">
       class Greeting extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { count: 0 };
+        }
+
+        onClick() {
+          this.setState((prevState, props) => {
+            return {count: prevState.count + 1 }
+          });
+        }
+
         render() {
           return (
             <div>
               <h1>Hello World!</h1>
+              <p>Today's Date: {this.props.date.toLocaleDateString()}</p>
+              <div>Times Clicked: {this.state.count}</div>
+              <button onClick={ () => this.onClick()}>click</button>
             </div>
-          );
-        }
+        );
       }
+    }
+
+    const info = {
+      date: new Date()
+    }
 
       ReactDOM.render(
-        <Greeting />, document.getElementById('app')
+        <Greeting date={info.date} />, document.getElementById('app')
       );
 
     </script>
